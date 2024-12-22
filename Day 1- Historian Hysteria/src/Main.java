@@ -58,12 +58,40 @@ public class Main {
         return totalSum;
     }
 
+    // TODO:
+    //  Calculate a total similarity score by adding up each number in the left list after
+    //  multiplying it by the number of times that number appears in the right list
+
+    public static int similarityScoreCalculator(List<Integer> list_1, List<Integer> list_2){
+        int totalScore = 0;
+
+        for (int i = 0; i < list_2.size(); i++){
+            int multiplyer = 0;
+            for (int j = 0; j < list_2.size(); j++){
+                if (list_1.get(i).equals(list_2.get(j))){
+                    multiplyer++;
+                }
+            }
+            totalScore += (list_1.get(i) * multiplyer);
+
+        }
+        return totalScore;
+    }
+
+
+
     public static void main(String[] args) throws FileNotFoundException {
 
         // First read lines from txt file and add them to a list
         readTextFile(list, list2);
         // Sort lists from smallest to largest using selection sort and compute the difference between neighbors while keeping a total
+
+        List<Integer> listCopy = new ArrayList<>(list);
+        List<Integer> listCopy2 = new ArrayList<>(list2);
+
         System.out.println(findTotalDistanceBetweenValues(selectionSort(list),selectionSort(list2)));
+        System.out.println("Similarity score: " + similarityScoreCalculator(listCopy,listCopy2));
+
 
     }
 }
