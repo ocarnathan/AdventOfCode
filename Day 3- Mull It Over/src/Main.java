@@ -12,21 +12,25 @@ public class Main {
     // TODO: read file and scan for a mul(X,Y) sequence. When a sequence is found compute the result and add it to a total. Return the total.
     public static int uncorruptedMulCommandsSum(File file){
         int totalSum = 0;
-        String regex = ".";
+        String regex = "mul\\(\\s*(-?\\d+)\\s*,\\s*(-?\\d+)\\s*\\)";
         Pattern pattern = Pattern.compile(regex);
 
-        Matcher matcher = pattern.matcher(regex);
+        
         try {
             Scanner sc = new Scanner(file);
-
             while(sc.hasNextLine()){
-                System.out.println(sc.nextLine());
+                //String currentLine = sc.nextLine();
+                //System.out.println(currentLine);
+                Matcher matcher = pattern.matcher(sc.nextLine());
+                while (matcher.find()){
+                    totalSum+= (Integer.parseInt(matcher.group(1)) * Integer.parseInt(matcher.group(2)));
+                }
             }
-            
-
+            sc.close();
         } catch (FileNotFoundException e){
             System.out.println("Error: " + e);
         }
+
 
         return totalSum;
     }
